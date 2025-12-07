@@ -404,31 +404,30 @@ def test_overlapping_keep_both():
 
 @pytest.mark.api
 def test_given_anonymize_called_with_genz_then_expected_valid_response_returned():
-    request_body = """
-    {
-"text": "Please contact Emily Carter at 734-555-9284 if you have questions about the workshop registration.",
-"anonymizers": {
-            "DEFAULT": { "type": "GenZ" },
-            "PHONE_NUMBER": { "type": "GenZ" }
+    request_body = {
+    "text": "Please contact Emily Carter at 734-555-9284 if you have questions about the workshop registration.",
+    "anonymizers": {
+        "DEFAULT": { "type": "GenZ" },
+        "PHONE_NUMBER": { "type": "GenZ" }
+    },
+    "analyzer_results": [
+        {
+            "start": 15,
+            "end": 27,
+            "score": 0.3,
+            "entity_type": "PERSON"
         },
-"analyzer_results": [
- {
-   "start": 15,
-   "end": 27,
-   "score": 0.3,
-   "entity_type": "PERSON"
- },
- {
-   "start": 31,
-   "end": 43,
-   "score": 0.95,
-   "entity_type": "PHONE_NUMBER"
- }
- ]
+        {
+            "start": 31,
+            "end": 43,
+            "score": 0.95,
+            "entity_type": "PHONE_NUMBER"
+        }
+    ]
 }
-    """
 
-    response_status, response_content = anonymizeGenZ(json.loads(request_body))
+
+    response_status, response_content = anonymizeGenZ(request_body)
 
    
 
