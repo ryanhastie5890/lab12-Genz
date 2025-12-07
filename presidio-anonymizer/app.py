@@ -60,7 +60,7 @@ class Server:
             content = request.get_json()
             if not content:
                 raise BadRequest("Invalid request json")
-            
+
             anonymizers_config = AppEntitiesConvertor.operators_config_from_json(
                 content.get("anonymizers")
             )
