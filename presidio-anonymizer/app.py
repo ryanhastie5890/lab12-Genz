@@ -4,6 +4,7 @@ import logging
 import os
 from logging.config import fileConfig
 from pathlib import Path
+import json
 
 from flask import Flask, Response, jsonify, request
 from presidio_anonymizer import AnonymizerEngine, DeanonymizeEngine
@@ -45,6 +46,15 @@ class Server:
             """Return basic health probe result."""
             return "Presidio Anonymizer service is up"
 
+        @self.app.route("/genz-preview")
+        def genz_preview() -> Response:
+            example = {
+                         "example": "Call Emily at 577-988-1234",
+                         "example output": "Call GOAT at vibe check",
+                         "description": "Example output of the genz anonymizer."
+                      }
+            return json.dumps(example)
+        
         @self.app.route("/anonymize", methods=["POST"])
         def anonymize() -> Response:
             content = request.get_json()
