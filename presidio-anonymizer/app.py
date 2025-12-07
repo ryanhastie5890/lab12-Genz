@@ -55,6 +55,27 @@ class Server:
                       }
             return json.dumps(example)
         
+        @self.app.route("/genz")
+        def genz() -> Response:
+            content = request.get_json()
+            if not content:
+                raise BadRequest("Invalid request json")
+
+            if AppEntitiesConvertor.check_custom_operator(anonymizers_config):
+                raise BadRequest("Custom type anonymizer is not supported")
+
+            analyzer_results = AppEntitiesConvertor.analyzer_results_from_json(
+                content.get("analyzer_results")
+            )
+            anoymizer_result = self.anonymizer.anonymize(
+                text=content.get("text", ""),
+                analyzer_results=analyzer_results,
+                operators="GenZ",
+            )
+            return Response(anoymizer_result.to_json(), mimetype="application/json")
+
+            
+        
         @self.app.route("/anonymize", methods=["POST"])
         def anonymize() -> Response:
             content = request.get_json()
