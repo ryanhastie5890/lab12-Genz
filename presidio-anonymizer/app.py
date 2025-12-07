@@ -6,10 +6,8 @@ import os
 from logging.config import fileConfig
 from pathlib import Path
 
-
 from flask import Flask, Response, jsonify, request
 from werkzeug.exceptions import BadRequest, HTTPException
-
 
 from presidio_anonymizer import AnonymizerEngine, DeanonymizeEngine
 from presidio_anonymizer.entities import InvalidParamError
