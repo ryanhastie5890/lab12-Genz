@@ -21,7 +21,7 @@ def anonymize(data):
 
 
 def anonymizeGenZ(data):
-    response = requests.post(
+    response = requests.get(
         f"{ANONYMIZER_BASE_URL}/genz", data=data, headers=DEFAULT_HEADERS
     )
     return response.status_code, response.content
