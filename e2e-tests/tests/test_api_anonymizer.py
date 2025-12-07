@@ -407,9 +407,10 @@ def test_given_anonymize_called_with_genz_then_expected_valid_response_returned(
     request_body = {
     "text": "Please contact Emily Carter at 734-555-9284 if you have questions about the workshop registration.",
     "anonymizers": {
-        "DEFAULT": { "type": "GenZ" },
-        "PHONE_NUMBER": { "type": "GenZ" }
-    },
+    "DEFAULT": { "entity_type": "DEFAULT" },
+    "PHONE_NUMBER": { "entity_type": "PHONE_NUMBER" }
+},
+
     "analyzer_results": [
         {
             "start": 15,
