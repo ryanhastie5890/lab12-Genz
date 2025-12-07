@@ -55,7 +55,7 @@ class Server:
                       }
             return json.dumps(example)
 
-        @self.app.route("/genz")
+        @self.app.route("/genz", methods=["POST"] )
         def genz() -> Response:
             content = request.get_json()
             if not content:
