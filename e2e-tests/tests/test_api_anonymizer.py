@@ -407,6 +407,10 @@ def test_given_anonymize_called_with_genz_then_expected_valid_response_returned(
     request_body = """
     {
 "text": "Please contact Emily Carter at 734-555-9284 if you have questions about the workshop registration.",
+"anonymizers": {
+            "DEFAULT": { "type": "GenZ" },
+            "PHONE_NUMBER": { "type": "GenZ" }
+        },
 "analyzer_results": [
  {
    "start": 15,
@@ -424,7 +428,7 @@ def test_given_anonymize_called_with_genz_then_expected_valid_response_returned(
 }
     """
 
-    response_status, response_content = anonymizeGenZ(request_body)
+    response_status, response_content = anonymizeGenZ(json.loads(request_body))
 
    
 
