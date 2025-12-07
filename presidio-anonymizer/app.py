@@ -2,9 +2,10 @@
 
 import logging
 import os
+import json
 from logging.config import fileConfig
 from pathlib import Path
-import json
+
 
 from flask import Flask, Response, jsonify, request
 from presidio_anonymizer import AnonymizerEngine, DeanonymizeEngine
@@ -54,15 +55,12 @@ class Server:
                          "description": "Example output of the genz anonymizer."
                       }
             return json.dumps(example)
-        
+
         @self.app.route("/genz")
         def genz() -> Response:
             content = request.get_json()
             if not content:
                 raise BadRequest("Invalid request json")
-
-            if AppEntitiesConvertor.check_custom_operator(anonymizers_config):
-                raise BadRequest("Custom type anonymizer is not supported")
 
             analyzer_results = AppEntitiesConvertor.analyzer_results_from_json(
                 content.get("analyzer_results")
@@ -74,8 +72,8 @@ class Server:
             )
             return Response(anoymizer_result.to_json(), mimetype="application/json")
 
-            
-        
+
+
         @self.app.route("/anonymize", methods=["POST"])
         def anonymize() -> Response:
             content = request.get_json()
