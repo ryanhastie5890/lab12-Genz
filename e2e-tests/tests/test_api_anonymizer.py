@@ -11,6 +11,10 @@ def test_given_anonymize_called_with_valid_request_then_expected_valid_response_
     request_body = """
     {
         "text": "hello world, my name is Jane Doe. My number is: 034453334",
+        "anonymizers": {
+            "DEFAULT": { "type": "replace", "new_value": "ANONYMIZED" },
+            "PHONE_NUMBER": { "type": "mask", "masking_char": "*", "chars_to_mask": 4, "from_end": true }
+        },
         "analyzer_results": [
             { "start": 24, "end": 32, "score": 0.8, "entity_type": "NAME" },
             { "start": 24, "end": 28, "score": 0.8, "entity_type": "FIRST_NAME" },
@@ -403,18 +407,6 @@ def test_given_anonymize_called_with_genz_then_expected_valid_response_returned(
 
     request_body = {
         "text": "Please contact Emily Carter at 734-555-9284 if you have questions about the workshop registration.",
-        "anonymizers": {
-            "DEFAULT": { 
-                "type": "genz", 
-                "operator_name": "genz", 
-                "entity_type": "DEFAULT"
-            },
-            "PHONE_NUMBER": { 
-                "type": "genz", 
-                "operator_name": "genz", 
-                "entity_type": "PHONE_NUMBER"
-            }
-        },
         "analyzer_results": [
             { 
                 "start": 15, 
