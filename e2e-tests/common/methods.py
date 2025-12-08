@@ -21,9 +21,17 @@ def anonymize(data):
 
 
 def genz(data):
+    anonymizers_config = {
+        "DEFAULT": {"type": "genz", "operator_name": "genz", "entity_type": "DEFAULT"},
+        "PHONE_NUMBER": {"type": "genz", "operator_name": "genz", "entity_type": "PHONE_NUMBER"}
+    }
+
+    data["anonymizers"] = anonymizers_config
+
     response = requests.post(
         "http://localhost:5001/genz", json=data, headers=DEFAULT_HEADERS
     )
+
     return response.status_code, response.content
 
 
