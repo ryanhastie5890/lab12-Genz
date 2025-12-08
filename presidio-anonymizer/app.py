@@ -61,10 +61,10 @@ class Server:
             if not content:
                 raise BadRequest("Invalid request json")
 
-            anonymizers_config = {
-            "DEFAULT": {"type": "genz", "operator_name": "genz", "entity_type": "DEFAULT"},
-            "PHONE_NUMBER": {"type": "genz", "operator_name": "genz", "entity_type": "PHONE_NUMBER"}
-        }
+            anonymizers_config = content.get("anonymizers", {
+        "DEFAULT": {"type": "genz", "operator_name": "genz", "entity_type": "DEFAULT"},
+        "PHONE_NUMBER": {"type": "genz", "operator_name": "genz", "entity_type": "PHONE_NUMBER"}
+    })
             if AppEntitiesConvertor.check_custom_operator(anonymizers_config):
                 raise BadRequest("Custom type anonymizer is not supported")
 
